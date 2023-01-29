@@ -52,7 +52,7 @@ const Posts = () => {
                                         <div className="carousel-inner">
                                             {blog.images.map(img => {
                                                 return <div className="carousel-item active" key={`cid${blog.images[0].split('.')[0] + Date.now() + Math.random()}`}>
-                                                    <img src={`http://localhost:4000/uploads/${img}`} className="d-block w-100" alt="..." />
+                                                    <img src={`http://localhost:4000/uploads/${img}`} className="d-block w-50" alt="..." />
                                                 </div>
                                             })}
                                         </div>
@@ -67,7 +67,7 @@ const Posts = () => {
 
                                     </div>
                                 </div>
-                                <Expression exppost={blog._id} explikes={blog.likes} />
+                                <Expression exppost={blog._id} explikes={blog.likes} expcomments={blog.comments} />
                             </div>)
                         })}
 

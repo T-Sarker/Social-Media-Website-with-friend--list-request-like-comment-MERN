@@ -27,6 +27,22 @@ const BlogSchema = mongoose.Schema({
         required: true
     },
     tags: [],
+    comments: [{
+        user: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
+            default: null
+        },
+        userName: {
+            type: String,
+            default: ''
+        },
+        msg: {
+            type: String,
+            default: ''
+        }
+    }],
+    friends: [],
     likes: []
 }, {
     timestamps: true

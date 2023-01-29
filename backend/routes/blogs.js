@@ -9,7 +9,9 @@ router.get('/all', BlogController.allBlog)
 router.get('/all/posts/:uid', BlogController.allBlogofUser)
 router.post('/update/post', auth, upload.array('images'), BlogController.updateBlog)
 router.get('/delete/:id', auth, BlogController.deleteBlog)
-router.post('/expression', BlogController.likeDislike)
+router.post('/expression', auth, BlogController.likeDislike)
+router.post('/expression/comment', auth, BlogController.comments)
+router.get('/expression/comment/:id/delete/:cmntId', BlogController.commentsDlt)
 
 
 

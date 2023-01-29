@@ -48,6 +48,26 @@ export const likeOrDislike = createAsyncThunk('post/expression', async (expdata,
     }
 })
 
+//comment post 
+export const commentPost = createAsyncThunk('post/comment', async (expdata, thunkAPI) => {
+    try {
+        const result = await postService.comments(expdata)
+        return result;
+    } catch (error) {
+        return thunkAPI.rejectWithValue(error.response.data)
+    }
+})
+
+//comment delete post 
+export const commentDeletePost = createAsyncThunk('post/commentDlt', async (expdata, thunkAPI) => {
+    try {
+        const result = await postService.commentsDelete(expdata)
+        return result;
+    } catch (error) {
+        return thunkAPI.rejectWithValue(error.response.data)
+    }
+})
+
 
 export const PostSlice = createSlice({
     name: 'post',
@@ -114,6 +134,32 @@ export const PostSlice = createSlice({
                 state.msgPost = 'Successfully liked'
             })
             .addCase(likeOrDislike.rejected, (state, action) => {
+
+                state.isErrorPost = true
+                state.msgPost = action.payload
+
+            })
+
+            .addCase(commentPost.pending, (state, action) => {
+                state.isLoadingPost = true
+            })
+            .addCase(commentPost.fulfilled, (state, action) => {
+                state.isLoadingPost = false
+            })
+            .addCase(commentPost.rejected, (state, action) => {
+
+                state.isErrorPost = true
+                state.msgPost = action.payload
+
+            })
+
+            .addCase(commentDeletePost.pending, (state, action) => {
+                state.isLoadingPost = true
+            })
+            .addCase(commentDeletePost.fulfilled, (state, action) => {
+                state.isLoadingPost = false
+            })
+            .addCase(commentDeletePost.rejected, (state, action) => {
 
                 state.isErrorPost = true
                 state.msgPost = action.payload

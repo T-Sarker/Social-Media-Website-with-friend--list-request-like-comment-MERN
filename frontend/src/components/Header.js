@@ -8,6 +8,7 @@ import Spinner from './Spinner'
 const Header = () => {
     const { user } = useSelector((state) => state.auth)
     const { blogs, isLoading } = useSelector((state) => (state.blog))
+    const { posts, isLoadingPost, isSuccessPost, isErrorPost, msgPost } = useSelector((state) => state.post)
     const dispatch = useDispatch()
     const navigate = useNavigate()
     useEffect(() => {
@@ -20,7 +21,7 @@ const Header = () => {
 
     useEffect(() => {
         dispatch(allBlog())
-    }, [isLoading])
+    }, [isLoading, isLoadingPost])
 
 
     const handelLogout = () => {
@@ -35,7 +36,7 @@ const Header = () => {
         <div>
             <nav className="navbar navbar-expand-lg bg-dark fixed-top mb-4">
                 <div className="container-fluid">
-                    <NavLink className="navbar-brand" to="/">AuthApp</NavLink>
+                    <NavLink className="navbar-brand" to="/">SocialME</NavLink>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>

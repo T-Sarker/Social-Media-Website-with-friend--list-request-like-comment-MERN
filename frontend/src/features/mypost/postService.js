@@ -44,6 +44,32 @@ const likeAndDislike = async (expdata) => {
 }
 
 
-const postService = { getMyPost, updateMyPost, deleteMyPost, likeAndDislike }
+
+
+const comments = async (expdata) => {
+    const result = await axios.post('/blog/expression/comment', expdata, {
+        headers: {
+            'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('user')).token
+        }
+    })
+    if (result) {
+        return result.data
+    }
+}
+
+
+const commentsDelete = async (expdata) => {
+    const result = await axios.get('/blog/expression/comment/' + expdata.pid + '/delete/' + expdata.cmntId, {
+        headers: {
+            'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('user')).token
+        }
+    })
+    if (result) {
+        return result.data
+    }
+}
+
+
+const postService = { getMyPost, updateMyPost, deleteMyPost, likeAndDislike, comments, commentsDelete }
 
 export default postService

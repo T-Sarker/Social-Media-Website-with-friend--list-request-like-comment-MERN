@@ -84,8 +84,13 @@
     border:1px solid;
     border-radius: 100%;
   }
+  .postTop {
+    align-items: center;
+  }
+
   .postTop p {
     margin-left: 10px;
+    font-size: 15px;
 }
 
 .friendList {

@@ -140,3 +140,42 @@ exports.likeDislike = async (req, res, next) => {
         return res.json({ type: 'error', error })
     }
 }
+
+
+
+exports.comments = async (req, res, next) => {
+
+    try {
+        const data = {
+            user: req.body.user,
+            userName: req.body.name,
+            msg: req.body.commentText
+        }
+
+        const result = await BlogModel.findByIdAndUpdate(req.body.pid, {
+            $push: {
+                comments: data
+            }
+        })
+        return res.status(200).json({ type: 'success', result })
+
+    } catch (error) {
+        return res.json({ type: 'error', error })
+    }
+}
+
+
+exports.commentsDlt = async (req, res, next) => {
+
+    try {
+        const result = await BlogModel.findByIdAndUpdate(req.params.id, {
+            $pull: {
+                comments: { _id: req.params.cmntId }
+            }
+        })
+        return res.status(200).json({ type: 'success', result })
+
+    } catch (error) {
+        return res.json({ type: 'error', error })
+    }
+}
