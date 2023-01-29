@@ -2,6 +2,20 @@
 *{
     font-family: 'Raleway', sans-serif;
 }
+body{
+  background-color: #FFDEE9;
+  background-image: linear-gradient(0deg, #FFDEE9 0%, #B5FFFC 100%);
+
+}
+.postArea .card{
+  background-color: #FFDEE9;
+  background-image: linear-gradient(0deg, #FFDEE9 0%, #B5FFFC 100%);
+}
+.heroBanner{
+  background-color: #FF9A8B;
+background-image: linear-gradient(90deg, #FF9A8B 0%, #FF6A88 55%, #FF99AC 100%);
+
+}
 .cursorPointer {cursor: pointer !important;}
 .navbar a{
   color:#fff !important
@@ -19,9 +33,6 @@
     text-decoration: none;
   }
   
-  h1, h2, h3, h4, h5, h6 {
-    font-family: "Playfair Display", Georgia, "Times New Roman", serif/*rtl:Amiri, Georgia, "Times New Roman", serif*/;
-  }
   
   .display-4 {
     font-size: 2.5rem;
