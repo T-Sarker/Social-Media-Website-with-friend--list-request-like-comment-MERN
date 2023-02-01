@@ -7,8 +7,8 @@ exports.addBlog = async (req, res, next) => {
     const { title, description, tags, name } = req.body
     let filNames = [];
     try {
-        console.log(req.body);
-        console.log(req.files);
+        // console.log(req.body);
+        // console.log(req.files);
         const uId = req.userId;
         const slug = slugk.MakeSlug(req)
         for (let i = 0; i < req.files.length; i++) {

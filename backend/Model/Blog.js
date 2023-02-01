@@ -42,7 +42,6 @@ const BlogSchema = mongoose.Schema({
             default: ''
         }
     }],
-    friends: [],
     likes: []
 }, {
     timestamps: true

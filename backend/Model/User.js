@@ -11,13 +11,14 @@ const UserSchema = mongoose.Schema({
         required: true,
         unique: true
     },
+    friends: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
     password: {
         type: String,
         required: true,
         unique: true
     },
 }, {
-    timeStamp: true
+    timestamps: true
 })
 
 const UserModel = mongoose.model('User', UserSchema)

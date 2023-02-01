@@ -6,6 +6,7 @@ var bodyParser = require('body-parser')
 const db = require('./DB/dbConfig')
 const AuthRoute = require('./routes/auth')
 const BlogRoute = require('./routes/blogs')
+const FriendRoute = require('./routes/friends')
 
 
 const app = express()
@@ -35,3 +36,4 @@ app.listen(process.env.PORT || 3000, (err) => {
 
 app.use('/api', AuthRoute)
 app.use('/api/blog', BlogRoute)
+app.use('/api/friend', FriendRoute)
