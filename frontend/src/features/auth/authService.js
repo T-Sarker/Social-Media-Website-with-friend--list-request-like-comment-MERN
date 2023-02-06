@@ -14,12 +14,23 @@ const register = async (userData) => {
 }
 
 
-const login = async (user) => {
-    const result = await axios.post('/login', user)
-    console.log('result is' + result);
+const login = async (formData) => {
+    const result = await axios.post('/login', formData)
+    console.log(result.data);
     if (result.data) {
         localStorage.setItem('user', JSON.stringify(result.data))
     }
+    return result.data
+}
+
+
+const getMe = async () => {
+    const result = await axios.get('/me', {
+        headers: {
+            'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('user')).token
+        }
+    })
+
     return result.data
 }
 
@@ -30,6 +41,7 @@ const authService = {
     register,
     logout,
     login,
+    getMe
 }
 
 export default authService

@@ -4,8 +4,10 @@ import FriendService from "./friendService";
 const initialState = {
     isLoadingF: false,
     isErrorF: false,
-    usersF: null,
-    friendReqF: null,
+    isSuccessF: false,
+    usersF: '',
+    friendReqF: '',
+    sentReqF: '',
     msgF: ''
 }
 
@@ -31,6 +33,16 @@ export const addFriend = createAsyncThunk('friend/add', async (fData, thunkAPI) 
 export const getCurrentUsersFriendReq = createAsyncThunk('friend/req', async (thunkAPI) => {
     try {
         const result = await FriendService.currentUsersFriendRequests()
+        return result;
+    } catch (error) {
+        return thunkAPI.rejectWithValue(error.response.data)
+    }
+})
+
+
+export const getCurrentUsersSentReq = createAsyncThunk('friend/sentreq', async (thunkAPI) => {
+    try {
+        const result = await FriendService.currentUsersSendRequests()
         return result;
     } catch (error) {
         return thunkAPI.rejectWithValue(error.response.data)
@@ -91,6 +103,20 @@ const FriendSlice = createSlice({
 
             })
 
+            .addCase(getCurrentUsersSentReq.pending, (state, action) => {
+                state.isLoadingF = true
+            })
+            .addCase(getCurrentUsersSentReq.fulfilled, (state, action) => {
+
+                state.sentReqF = action.payload
+            })
+            .addCase(getCurrentUsersSentReq.rejected, (state, action) => {
+
+                state.isErrorF = true
+                state.msgF = action.payload
+
+            })
+
             .addCase(handelAllFriendRequests.pending, (state, action) => {
                 state.isLoadingF = true
             })
@@ -108,7 +134,7 @@ const FriendSlice = createSlice({
                 state.isLoadingF = true
             })
             .addCase(addFriend.fulfilled, (state, action) => {
-                state.isLoadingF = false
+                state.isSuccessF = true
             })
             .addCase(addFriend.rejected, (state, action) => {
 

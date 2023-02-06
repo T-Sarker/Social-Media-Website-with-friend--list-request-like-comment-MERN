@@ -23,6 +23,17 @@ const currentUsersFriendRequests = async () => {
     }
 }
 
+const currentUsersSendRequests = async () => {
+    const result = await axios.get('/friend/mysentreq/', {
+        headers: {
+            'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('user')).token
+        }
+    })
+    if (result) {
+        return result.data
+    }
+}
+
 const handelFriendRequests = async (reqData) => {
     const result = await axios.post('/friend/request/handel', reqData, {
         headers: {
@@ -46,6 +57,6 @@ const addFriends = async (fData) => {
     }
 }
 
-const FriendService = { allUsers, currentUsersFriendRequests, handelFriendRequests, addFriends }
+const FriendService = { allUsers, currentUsersFriendRequests, currentUsersSendRequests, handelFriendRequests, addFriends }
 
 export default FriendService

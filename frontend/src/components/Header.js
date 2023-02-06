@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
-import { logout } from '../features/auth/authSlice'
+import { getMyData, logout, reset } from '../features/auth/authSlice'
 import { useSelector, useDispatch } from 'react-redux'
 import { allBlog } from '../features/blog/blogSlice'
 import { FaUsers } from 'react-icons/fa'
@@ -8,26 +8,30 @@ import Spinner from './Spinner'
 import { handelAllFriendRequests } from '../features/friends/friendSlice'
 
 const Header = () => {
-    const { user } = useSelector((state) => state.auth)
+    const { user, me, isSuccess } = useSelector((state) => state.auth)
     const { isLoading } = useSelector((state) => (state.blog))
     const { isLoadingPost } = useSelector((state) => state.post)
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
+    // console.log(user);
+    // console.log(me);
+
 
     //friendReq notify
-    const { isLoadingF, friendReqF } = useSelector((state) => (state.friends))
+    const { isLoadingF, friendReqF, usersF, sentReqF, } = useSelector((state) => (state.friends))
     const [friendReqNotify, setFriendReqNotify] = useState()
     const [notify, setNotify] = useState(null)
 
 
 
     useEffect(() => {
+
         setFriendReqNotify(friendReqF);
         //notify count
-        const notifyCounter = friendReqF && friendReqF.allReq.filter(reqs => {
+        const notifyCounter = friendReqF ? friendReqF.allReq?.filter(reqs => {
             return reqs.status === false
-        })
+        }) : ''
 
         setNotify(notifyCounter && notifyCounter.length > 0 ? notifyCounter.length : 0)
 
@@ -35,20 +39,23 @@ const Header = () => {
 
     useEffect(() => {
 
-        if (user == null || !user || !localStorage.getItem('user')) {
 
+        if (user == null || !user || !localStorage.getItem('user')) {
+            console.log('i am called');
             navigate('/')
         }
     }, [user])
 
     useEffect(() => {
+
         dispatch(allBlog())
-    }, [isLoading, isLoadingPost])
+        dispatch(getMyData())
+    }, [isLoading, isLoadingPost, isLoadingF, isSuccess])
 
 
     const handelLogout = () => {
-
         dispatch(logout())
+        dispatch(reset())
     }
     if (isLoading) {
         <Spinner />
@@ -86,7 +93,7 @@ const Header = () => {
                                     <ul className="dropdown-menu dropdown-menu-light p-2 notifyList">
                                         {/* <li><a className="dropdown-item" href="#">Action</a></li> */}
                                         {
-                                            friendReqF && friendReqF.allReq.map(Freq => {
+                                            friendReqF ? friendReqF.allReq?.map(Freq => {
                                                 if (Freq.status === false) {
                                                     return (
                                                         <li className="dropdown-item shadow-sm my-2" key={'hh' + Freq._id}>
@@ -96,7 +103,7 @@ const Header = () => {
                                                         </li>
                                                     )
                                                 }
-                                            })
+                                            }) : ''
                                         }
 
                                     </ul>

@@ -6,6 +6,7 @@ const router = express.Router()
 
 router.post('/add', auth, FriendController.addFriendReq)
 router.get('/myreq', auth, FriendController.myAllFriendsReq)
+router.get('/mysentreq', auth, FriendController.myAllSendReq)
 router.get('/all', auth, FriendController.allUsers)
 router.post('/request/handel', auth, FriendController.responseMyFriendsReq)
 

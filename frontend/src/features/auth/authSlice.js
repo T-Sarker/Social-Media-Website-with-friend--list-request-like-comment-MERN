@@ -8,6 +8,7 @@ const initialState = {
     isLoading: false,
     isSuccess: false,
     isError: false,
+    me: null,
     user: user ? user : null,
     msg: ''
 }
@@ -23,10 +24,21 @@ export const register = createAsyncThunk('auth/register', async (user, thunkAPI)
 })
 
 
-export const login = createAsyncThunk('auth/login', async (user, thunkAPI) => {
+export const login = createAsyncThunk('auth/login', async (formData, thunkAPI) => {
     try {
-        const result = await authService.login(user)
-        console.log(JSON.stringify(result));
+        const result = await authService.login(formData)
+        return result
+    } catch (error) {
+
+        return thunkAPI.rejectWithValue(error.response.data)
+    }
+})
+
+
+export const getMyData = createAsyncThunk('auth/me', async (thunkAPI) => {
+    try {
+        const result = await authService.getMe()
+        // console.log(JSON.stringify(result));
         return result
     } catch (error) {
 
@@ -47,9 +59,10 @@ export const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        // reset: (state) => {
-        //     state.user = null
-        // }
+        reset: (state) => {
+            state.user = null
+            state.me = null
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -65,6 +78,20 @@ export const authSlice = createSlice({
             .addCase(register.rejected, (state, action) => {
                 state.isLoading = false
                 state.isSuccess = false
+                state.isError = true
+                state.msg = action.payload
+            })
+
+            .addCase(getMyData.pending, (state, action) => {
+                state.isLoading = true
+            })
+            .addCase(getMyData.fulfilled, (state, action) => {
+
+                state.isSuccess = true
+                state.me = action.payload
+            })
+            .addCase(getMyData.rejected, (state, action) => {
+
                 state.isError = true
                 state.msg = action.payload
             })

@@ -25,6 +25,19 @@ exports.myAllFriendsReq = async (req, res, next) => {
     }
 }
 
+
+exports.myAllSendReq = async (req, res, next) => {
+
+    //all the requests that are available for current user
+    try {
+        const allSendReq = await FriendModel.find({ fromId: req.userId, status: false })
+        return res.status(200).json({ type: 'success', allSendReq })
+    } catch (error) {
+        console.log(error);
+        return res.json({ type: 'error', error })
+    }
+}
+
 exports.responseMyFriendsReq = async (req, res, next) => {
 
     //all the requests that are available for current user

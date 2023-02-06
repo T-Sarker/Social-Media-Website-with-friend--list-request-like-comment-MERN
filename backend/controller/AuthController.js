@@ -28,7 +28,8 @@ exports.login = async (req, res, next) => {
 
     const user = await User.findOne({ email })
 
-    console.log(user);
+    // console.log('user');
+    // console.log(user);
 
     if (!user) {
         return res.status(400).json('User not found')
@@ -43,10 +44,20 @@ exports.login = async (req, res, next) => {
         id: user._id,
         name: user.name,
         email: user.email,
+        'lol': 'lol',
         token: generateToken(user._id)
 
     })
 
+}
+
+exports.getCurrentUserData = async (req, res, next) => {
+    try {
+        const result = await User.findById(req.userId).select('-password').populate('friends')
+        return res.status(200).json(result)
+    } catch (error) {
+        return res.status(400).json('Wrong Information' + error)
+    }
 }
 
 

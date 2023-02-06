@@ -49,8 +49,6 @@ export const BlogSlice = createSlice({
             })
             .addCase(addBlog.rejected, (state, action) => {
                 state.isError = true
-                state.isSuccess = false
-                state.isLoading = false
                 state.msg = action.payload
 
             })
@@ -58,7 +56,7 @@ export const BlogSlice = createSlice({
                 state.isLoading = true
             })
             .addCase(allBlog.fulfilled, (state, action) => {
-                state.isLoading = false
+
                 state.blogs = action.payload
             })
             .addCase(allBlog.rejected, (state, action) => {

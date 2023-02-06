@@ -11,18 +11,20 @@ const Login = () => {
 
     const { isLoading, isSuccess, isError, user, msg } = useSelector((state) => state.auth)
 
+
     const [formData, setFormData] = useState({ email: '', password: '' })
 
     const handelChange = (e) => {
         setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }))
     }
     useEffect(() => {
-        console.log('i am calledeffect');
+        console.log('i am called effect');
         if (isError) {
             toast.error(msg)
         }
         console.log(isSuccess + "-------" + user);
         if (user) {
+
             navigate('/home')
         }
         // dispatch(reset())
