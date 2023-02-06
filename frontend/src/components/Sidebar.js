@@ -61,7 +61,7 @@ const Sidebar = () => {
                                             <div className="headingDetails">
                                                 <p className='mb-0 fs-6'>{usr.name}</p>
                                                 {
-                                                    sentReqF ? sentReqF.allSendReq.length > 0 ? sentReqF.allSendReq.some(reqF => { return usr._id === reqF.toId && reqF.status === false }) ? <span className='btn btn-info btn-sm ms-3 disabled' onClick={() => { handelAddFriend(usr._id) }} >Already Sent</span> : <span className='btn btn-info btn-sm ms-3' onClick={() => { handelAddFriend(usr._id) }} >Add Friendll</span> : <span className='btn btn-info btn-sm ms-3' onClick={() => { handelAddFriend(usr._id) }} >Add Friendll</span> : ''
+                                                    sentReqF ? sentReqF.allSendReq.length > 0 ? sentReqF.allSendReq.some(reqF => { return usr._id === reqF.toId && reqF.status === false }) ? <span className='btn btn-info btn-sm ms-3 disabled' onClick={() => { handelAddFriend(usr._id) }} >Already Sent</span> : <span className='btn btn-info btn-sm ms-3' onClick={() => { handelAddFriend(usr._id) }} >Add Friend</span> : <span className='btn btn-info btn-sm ms-3' onClick={() => { handelAddFriend(usr._id) }} >Add Friend</span> : ''
                                                 }
                                             </div>
                                         </div>
